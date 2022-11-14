@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3003;
 
 //set up cors middleware
                                             //👇deployed site link goes here
-const whitelist = [`${process.env.FRONTEND_URL}`];
+const whitelist = [`${process.env.FRONTEND_URL}`, `https://game-library-frontend.herokuapp.com/`];
 const corsOptions = {
     origin: (origin, callback) => {
         console.log(whitelist, "WHITELIST")
