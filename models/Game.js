@@ -6,7 +6,8 @@ const gameSchema = new mongoose.Schema({
     img: {type: String},
     playDuration: {type: String},
     genre: {type: String},
-    rating: {type: String}
+    rating: {type: String},
+    description: {type: String},
 }, {timestamp: true})
 //timestamp will track when the object was made. It will return a date.
 
