@@ -12,6 +12,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3003;
 
 //set up cors middleware
+
                                             //👇deployed site link goes here
 const whitelist = [`${process.env.FRONTEND_URL}`, `https://game-library-frontend.herokuapp.com/`];
 const corsOptions = {
@@ -30,7 +31,10 @@ const corsOptions = {
 
 //middleware
 //cors for cross-domain approval
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors({
+    origin: "https://game-library-frontend.herokuapp.com/"
+}))
 app.use(express.json())
 //body data middleware
 app.use(express.urlencoded({extended: true}))
