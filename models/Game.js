@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 //create schema
 const gameSchema = new mongoose.Schema({
     title: {type: String, required: true},
-    img: {type: String},
-    playDuration: {type: String},
+    backgroundImage: {type: String},
+    playtime: {type: String},
     genre: {type: String},
     rating: {type: String},
-    description: {type: String},
-}, {timestamp: true})
+    notes: {type: String},
+})
 //timestamp will track when the object was made. It will return a date.
 
 //Create Model
