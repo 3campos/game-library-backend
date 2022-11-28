@@ -30,7 +30,7 @@ const corsOptions = {
 
 //middleware
 //cors for cross-domain approval
-app.use(cors(corsOptions, {origin:`https://game-library-frontend.herokuapp.com`}));
+app.use(cors(corsOptions));
 app.use(express.json())
 //body data middleware
 app.use(express.urlencoded({extended: true}))
