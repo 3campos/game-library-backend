@@ -65,12 +65,12 @@ app.use(methodOverride("_method"))
 // );
 // app.use(cookieParser());
 
-// const SESSION_SECRET=process.env.SESSION_SECRET
+const SESSION_SECRET_KEY=process.env.SESSION_SECRET
 
 app.set("trust proxy", 1);
 
 app.use(session({
-    secret: "secret-key",
+    secret: `${SESSION_SECRET_KEY}`,
     resave: true,
     saveUninitialized: true,
     cookie: {
