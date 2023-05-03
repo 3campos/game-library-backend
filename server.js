@@ -48,9 +48,9 @@ const corsOptions = {
 };
 
 //middleware
+app.use(express.json())
 //cors for cross-domain approval
 app.use(cors(corsOptions));
-app.use(express.json())
 //body data middleware
 app.use(express.urlencoded({extended: true}))
 //method override Middleware
