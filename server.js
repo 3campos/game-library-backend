@@ -102,7 +102,6 @@ passport.use(new GoogleStrategy({
 //this function is called on a successful authentication
 function(accessToken, refreshToken, profile, cb) {
     //insert into the database
-    console.log(User, 'line 86 of server.js')
     User.findOne({ googleId: profile.id}, async (err, doc) => {
         if (err){
             return cb(err, null);
@@ -142,16 +141,13 @@ function(req, res){
 
 app.get("/getuser", (req, res) => {
     res.send(req.user);
-    console.log('getting user line 132:', req.user)
 })
 
 app.get("/logout", function (req, res, next) {
-    console.log('getting user line 136:', req.user)
     req.logout(function(err) {
         if (err) { return next(err); }
         res.redirect('/');
       });
-    console.log('checking whether there is still a user line 141:', req.user)
 })
 
 //confirms that the server is working
