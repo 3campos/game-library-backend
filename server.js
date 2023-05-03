@@ -64,6 +64,22 @@ app.use(methodOverride("_method"))
 //     })
 // );
 // app.use(cookieParser());
+
+const SESSION_SECRET=process.env.SESSION_SECRET
+
+app.set("trust proxy", 1);
+
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        sameSite: "none",
+        secure: true,
+        maxAge: 1000 * 60 * 60 * 24 * 5 // five days per session
+    }
+}))
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -137,21 +153,6 @@ app.get("/logout", function (req, res, next) {
       });
     console.log('checking whether there is still a user line 141:', req.user)
 })
-
-const SESSION_SECRET=process.env.SESSION_SECRET
-
-app.set("trust proxy", 1);
-
-app.use(session({
-    secret: SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        sameSite: "none",
-        secure: true,
-        maxAge: 1000 * 60 * 60 * 24 * 5 // five days per session
-    }
-}))
 
 //confirms that the server is working
 app.listen(PORT, ()=> {
