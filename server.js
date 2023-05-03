@@ -113,7 +113,7 @@ app.use('/games', routes.games)
 app.get("/auth/google",
 passport.authenticate('google', {scope: ['profile']}));
 
-app.post("/auth/google/callback", passport.authenticate('google', {failureRedirect: 'https://game-library-frontend.herokuapp.com/'}),
+app.get("/auth/google/callback", passport.authenticate('google', {failureRedirect: 'https://game-library-frontend.herokuapp.com/'}),
 function(req, res){
     res.redirect('https://game-library-frontend.herokuapp.com/');
 });
