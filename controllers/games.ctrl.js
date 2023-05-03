@@ -4,6 +4,7 @@ const db = require('../models')
 const index = (req, res) => {
     db.Game.find(
         {}, (error, allGames) => {
+        //^empty bracket here returns all docs in the collection
             if(error) return res.status(400).json({error: error.message});
 
             return res.status(200).json({
@@ -17,9 +18,9 @@ const index = (req, res) => {
 const create = (req, res) => {
     db.Game.create(
         req.body, (error, createdGame) => {
+        // The req.body property contains key-value pairs of data submitted in the request body
             if(error) return res.status(400).json({error: error.message});
             return res.status(200).json(createdGame)
-            console.log(createdGame)
         }
     )
 }
