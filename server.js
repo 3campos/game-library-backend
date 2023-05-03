@@ -56,13 +56,13 @@ app.use(express.urlencoded({extended: true}))
 //method override Middleware
 app.use(methodOverride("_method"))
 //create sessions
-app.use(
-    session({
-        secret: "secretcode",
-        resave: true,
-        saveUninitialized: true,
-    })
-);
+// app.use(
+//     session({
+//         secret: "secretcode",
+//         resave: true,
+//         saveUninitialized: true,
+//     })
+// );
 // app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -144,8 +144,8 @@ app.set("trust proxy", 1);
 
 app.use(session({
     secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
         sameSite: "none",
         secure: true,
