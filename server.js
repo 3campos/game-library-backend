@@ -8,7 +8,7 @@ const session = require("express-session")
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cookieParser = require('cookie-parser')
-// const User = require('./models/User.js')
+const User = require('./models/users.js')
 
 //internal modules
 const routes = require('./routes')
@@ -102,6 +102,7 @@ passport.use(new GoogleStrategy({
 //this function is called on a successful authentication
 function(accessToken, refreshToken, profile, cb) {
     //insert into the database
+    console.log(User, 'line 86 of server.js')
     User.findOne({ googleId: profile.id}, async (err, doc) => {
         if (err){
             return cb(err, null);
@@ -124,12 +125,11 @@ function(accessToken, refreshToken, profile, cb) {
 //this makes all routes start with /games on local or deployed site
 app.use('/games', routes.games)
 //^sending the default route over to the controller
-app.use('/users', routes.users)
 //can add additional controllers here
 app.get("/auth/google",
 passport.authenticate('google', {scope: ['profile']}));
 
-app.get("/auth/google/callback", passport.authenticate('google', {failureRedirect: 'https://game-library-frontend.herokuapp.com/', session: true}),
+app.get("/auth/google/callback", passport.authenticate('google', {failureRedirect: 'https://game-library-frontend.herokuapp.com/'}),
 function(req, res){
     res.redirect('https://game-library-frontend.herokuapp.com/');
 });
@@ -142,13 +142,16 @@ function(req, res){
 
 app.get("/getuser", (req, res) => {
     res.send(req.user);
+    console.log('getting user line 132:', req.user)
 })
 
 app.get("/logout", function (req, res, next) {
+    console.log('getting user line 136:', req.user)
     req.logout(function(err) {
         if (err) { return next(err); }
         res.redirect('/');
       });
+    console.log('checking whether there is still a user line 141:', req.user)
 })
 
 //confirms that the server is working
