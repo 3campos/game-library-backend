@@ -8,7 +8,7 @@ const session = require("express-session")
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cookieParser = require('cookie-parser')
-const User = require('./models/users.js')
+// const User = require('./models/User.js')
 
 //internal modules
 const routes = require('./routes')

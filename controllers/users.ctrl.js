@@ -1,4 +1,4 @@
-const db = require('../models/users.js')
+const db = require('../models')
 
 //index route shows all users' data in the database as json
 const index = (req, res) => {
