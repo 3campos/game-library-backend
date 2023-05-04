@@ -129,7 +129,7 @@ app.use('/users', routes.users)
 app.get("/auth/google",
 passport.authenticate('google', {scope: ['profile']}));
 
-app.get("/auth/google/callback", passport.authenticate('google', {failureRedirect: 'https://game-library-frontend.herokuapp.com/'}),
+app.get("/auth/google/callback", passport.authenticate('google', {failureRedirect: 'https://game-library-frontend.herokuapp.com/', session: true}),
 function(req, res){
     res.redirect('https://game-library-frontend.herokuapp.com/');
 });
