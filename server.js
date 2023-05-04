@@ -102,7 +102,7 @@ passport.use(new GoogleStrategy({
 //this function is called on a successful authentication
 function(accessToken, refreshToken, profile, cb) {
     //insert into the database
-    User.findOne({ googleId: profile.id}, (err, doc) => {
+    User.findOne({ googleId: profile.id}, async (err, doc) => {
         if (err){
             return cb(err, null);
         }
@@ -111,7 +111,7 @@ function(accessToken, refreshToken, profile, cb) {
             googleId: profile.id,
             username: profile.name.givenName
         })
-        newUser.save();
+        await newUser.save();
         cb(null, newUser);
         }
         cb(null, doc);
