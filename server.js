@@ -124,6 +124,7 @@ function(accessToken, refreshToken, profile, cb) {
 //this makes all routes start with /games on local or deployed site
 app.use('/games', routes.games)
 //^sending the default route over to the controller
+app.use('/users', routes.users)
 //can add additional controllers here
 app.get("/auth/google",
 passport.authenticate('google', {scope: ['profile']}));
