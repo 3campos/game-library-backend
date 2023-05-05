@@ -114,6 +114,7 @@ function(accessToken, refreshToken, profile, cb) {
         })
         await newUser.save();
         cb(null, newUser);
+        alert("You've Registered! Please Sign In!");
         }
         cb(null, doc);
     })
