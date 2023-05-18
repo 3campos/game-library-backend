@@ -8,7 +8,9 @@ const gameSchema = new mongoose.Schema({
     genre: {type: String},
     rating: {type: String},
     notes: {type: String},
-    dbIdForGame: {type: String}
+    dbIdForGame: {type: String},
+    creatorsGoogleId: {type: String},
+    permittedUsers: {type: String}
 })
 //timestamp will track when the object was made. It will return a date.
 

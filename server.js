@@ -6,7 +6,7 @@ const cors = require('cors');
 const session = require("express-session")
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('./models/users.js')
+const User = require('./models/User.js')
 
 //internal modules
 const routes = require('./routes')
@@ -73,23 +73,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //passport serializes user instances to and from the session based on the cookie for that session.
+//serializeUser determines which user object data is stored in session (user._id)
 passport.serializeUser((user, done) => {
     return done(null, user._id);
 }) 
-
+//deserializeUser retrieves the user object based on the key provided in the done function (here, user._id)
 passport.deserializeUser((id, done) => {
     User.findById(id, (err, doc) => {
         return done(null, doc);
     })
 })
 
-//2. the user is authenticated based on comparison of the credentials
+//2. the clientId and secret are set to the credentials for the google API
 passport.use(new GoogleStrategy({
     clientID: `${process.env.GOOGLE_CLIENT_ID}`,
     clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
     callbackURL: "/auth/google/callback"
 },
-//3. this function is called on a successful authentication
+//3. The user is authenticated based on comparison of the credentials. This function is called on a successful authentication
 function(accessToken, refreshToken, profile, cb) {
     //insert into the database
     User.findOne({ googleId: profile.id}, async (err, doc) => {
@@ -112,14 +113,18 @@ function(accessToken, refreshToken, profile, cb) {
 
 //ROUTES
 app.use('/games', routes.games)
-//^sending the default route to the controller
+app.use('/users', routes.users)
+//^sending the routes to the controller
 
 //1. a get request is first made for the user's google profile before the user is authenticated using the googleStrategy function
 app.get("/auth/google",
 passport.authenticate('google', {scope: ['profile']}));
 
 //4. this function is then called on a successful or unsuccessful callback
-app.get("/auth/google/callback", passport.authenticate('google', {failureRedirect: 'https://game-library-frontend.herokuapp.com/', session: true}),
+app.get("/auth/google/callback", passport.authenticate('google', {
+    failureRedirect: 'https://game-library-frontend.herokuapp.com/',
+    session: true,
+}),
 function(req, res){
     res.redirect('https://game-library-frontend.herokuapp.com/');
 });
