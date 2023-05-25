@@ -10,7 +10,7 @@ const gameSchema = new mongoose.Schema({
     notes: {type: String},
     dbIdForGame: {type: String},
     creatorsGoogleId: {type: String},
-    permittedUsers: {type: String}
+    permittedUsers: [{permittedName: {type: String}}]
 })
 //timestamp will track when the object was made. It will return a date.
 
